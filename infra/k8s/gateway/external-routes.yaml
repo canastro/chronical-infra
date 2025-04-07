@@ -1,0 +1,45 @@
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: portal-external-routes
+spec:
+  parentRefs:
+  - kind: Gateway
+    name: chronical-dev-gateway
+  hostnames:
+  - "chronical.dev"
+  - "portal.chronical.dev"
+  rules:
+  - backendRefs:
+    - name: portal-web-service
+      port: 3000
+---
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: publication-external-routes
+spec:
+  parentRefs:
+  - kind: Gateway
+    name: chronical-dev-gateway
+  hostnames:
+  - "*.chronical.dev"
+  rules:
+  - backendRefs:
+    - name: publication-web-service
+      port: 3000
+---
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: webhooks-external-routes
+spec:
+  parentRefs:
+  - kind: Gateway
+    name: chronical-dev-gateway
+  hostnames:
+  - "webhooks.chronical.dev"
+  rules:
+  - backendRefs:
+    - name: webhooks-server-service
+      port: 8090

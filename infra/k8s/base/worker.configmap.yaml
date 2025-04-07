@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: worker-configmap
+  labels:
+    app: worker
+data:
+  ENVIRONMENT: staging
+  MIN_LOG_LEVEL: debug
+  # Web3
+  QUICKNODE_API_BASE_URL: https://base-sepolia.infura.io/v3/e86e5d8a7748868526a3ee424c280370
+  PINATA_API_GATEWAY: fuchsia-hilarious-sawfish-610.mypinata.cloud

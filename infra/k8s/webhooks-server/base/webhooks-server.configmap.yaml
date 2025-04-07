@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webhooks-server-configmap
+  labels:
+    app: webhooks-server
+data:
+  ENVIRONMENT: staging
+  MIN_LOG_LEVEL: debug
+  # Web3
+  QUICKNODE_API_BASE_URL: https://base-sepolia.infura.io/v3/e86e5d8a7748868526a3ee424c280370

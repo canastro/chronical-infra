@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webhooks-server
+  labels:
+    app: webhooks-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webhooks-server
+  template:
+    metadata:
+      labels:
+        app: webhooks-server
+    spec:
+      serviceAccountName: chronical-web-sa
+      containers:
+      - name: webhooks-server
+        image: 'us-east1-docker.pkg.dev/chronical-dev/chronical-artifacts-repository/chronical-webhooks-server:0.0.2'
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8090
+        env:
+          - name: GET_HOSTS_FROM
+            value: dns
+        envFrom:
+          - secretRef:
+              name: common-secrets
+          - configMapRef:
+              name: common-configmap
+          - configMapRef:
+              name: webhooks-server-configmap
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 250m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8090
+          initialDelaySeconds: 10
+          periodSeconds: 3

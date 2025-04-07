@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: portal-web-configmap
+  labels:
+    app: portal-web
+data:
+  NEXT_PUBLIC_ENVIRONMENT: staging
+  NEXT_PUBLIC_VERSION: "0.0.0"
+  MIN_LOG_LEVEL: debug
+  # Authentication
+  NEXTAUTH_URL: "https://portal.chronical.dev/"
+  NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID: ca82612f-39ea-4cae-8183-ba01359c32b2
+ 

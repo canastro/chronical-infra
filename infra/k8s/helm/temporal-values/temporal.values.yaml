@@ -1,0 +1,93 @@
+server:
+  config:
+    persistence:
+      default:
+        driver: "sql"
+
+        sql:
+          driver: "postgres12"
+          host: postgres-service
+          port: 5432
+          database: temporal
+          user: admin
+          existingSecret: temporal-secrets
+          maxConns: 20
+          maxIdleConns: 20
+          maxConnLifetime: "1h"
+
+      visibility:
+        driver: "sql"
+
+        sql:
+          driver: "postgres12"
+          host: postgres-service
+          port: 5432
+          database: temporal_visibility
+          user: admin
+          existingSecret: temporal-secrets
+          maxConns: 20
+          maxIdleConns: 20
+          maxConnLifetime: "1h"
+  
+  frontend:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+
+  history:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+
+  matching:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+
+  worker:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+
+  web:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+
+  admintools:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+
+cassandra:
+  enabled: false
+
+mysql:
+  enabled: false
+
+postgresql:
+  enabled: true
+
+prometheus:
+  enabled: false
+
+grafana:
+  enabled: false
+  
+elasticsearch:
+  enabled: false
+
+schema:
+  createDatabase:
+    enabled: true
+  setup:
+    enabled: false
+  update:
+    enabled: false
+

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: publication-web-configmap
+  labels:
+    app: publication-web
+data:
+  NEXT_PUBLIC_ENVIRONMENT: staging
+  NEXT_PUBLIC_VERSION: "0.0.0"
+  MIN_LOG_LEVEL: debug
+  # Authentication
+  NEXTAUTH_URL: "https://chronical.dev/"
+  NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID: ca82612f-39ea-4cae-8183-ba01359c32b2

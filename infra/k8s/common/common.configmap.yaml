@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-configmap
+data:
+  # Domains
+  NEXT_PUBLIC_PORTAL_DOMAIN: portal.chronical.dev
+  NEXT_PUBLIC_PUBLICATION_DOMAIN: chronical.dev
+  NEXT_PUBLIC_TOP_LEVEL_DOMAIN: chronical.dev
+  # Redis
+  REDIS_HOST: redis-service
+  REDIS_PORT: "6379"
+  # Storage
+  NEXT_PUBLIC_STORAGE_DOMAIN: assets-dev.chronical.so
+  STORAGE_DOMAIN: assets-dev.chronical.so
+  STORAGE_ACCOUNT_ID: 4c0d25d385fd9b3e7743904c4a657092
+  STORAGE_ACCESS_KEY_ID: c2bf4efd261b024d0b34286459f7690c
+  STORAGE_BUCKET_NAME: dev-chronical
+  # Web3 Networks
+  NEXT_PUBLIC_SEPOLIA_RPC_URL: https://spring-prettiest-brook.base-sepolia.quiknode.pro/e86e5d8a7748868526a3ee424c280370213d34d7
+  NEXT_PUBLIC_SEPOLIA_CHAIN_ID: "84532"
+  NEXT_PUBLIC_BASESCAN_URL: https://sepolia.basescan.org
+  NEXT_PUBLIC_HARDHAT_RPC_URL: http://127.0.0.1:8545
+  NEXT_PUBLIC_HARDHAT_CHAIN_ID: "31337"
+  NEXT_PUBLIC_SEPOLIA_WALLET_ADDRESS: MHg1OThkQUY3RTQ4ZDBiMDA2ZUMwMTc2YWIxMzlFMUQ1ZDY4NzFiZmFECg==
+  NEXT_PUBLIC_HARDHAT_WALLET_ADDRESS: MHhmMzlGZDZlNTFhYWQ4OEY2RjRjZTZhQjg4MjcyNzljZmZGYjkyMjY2Cg==
+  # Telemetry
+  OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://localhost:4318/v1/traces
+  OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: http://localhost:9090/api/v1/otlp/v1/metrics
+  # Temporal
+  TEMPORAL_ADDRESS: services/temporaltest-frontend-headless:7233

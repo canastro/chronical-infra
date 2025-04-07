@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: publication-web
+  labels:
+    app: publication-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: publication-web
+  template:
+    metadata:
+      labels:
+        app: publication-web
+    spec:
+      serviceAccountName: chronical-web-sa
+      containers:
+      - name: publication-web
+        image: 'us-east1-docker.pkg.dev/chronical-dev/chronical-artifacts-repository/chronical-publication-web:0.0.3'
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 3000
+        env:
+          - name: GET_HOSTS_FROM
+            value: dns
+        envFrom:
+          - secretRef:
+              name: common-secrets
+          - configMapRef:
+              name: common-configmap
+          - configMapRef:
+              name: publication-web-configmap
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 250m
+            memory: 512Mi

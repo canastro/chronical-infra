@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: publication-web-service
+  labels:
+    app: publication-web
+spec:
+  type: NodePort
+  selector:
+    app: publication-web
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
