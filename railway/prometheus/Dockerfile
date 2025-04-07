@@ -1,6 +1,6 @@
 FROM prom/prometheus:latest
 
-COPY ./infra/railway/prometheus/prometheus.yml /etc/prometheus/prometheus.yml
+COPY ./railway/prometheus/prometheus.yml /etc/prometheus/prometheus.yml
 
 EXPOSE 9090
 
