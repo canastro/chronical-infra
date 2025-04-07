@@ -1,0 +1,87 @@
+---
+server:
+  grpc_listen_address: '::0'
+  grpc_listen_port: 9095
+  http_listen_address: '::0'
+  http_listen_port: 3200
+
+query_frontend:
+  search:
+    duration_slo: 5s
+    throughput_bytes_slo: 1.073741824e+09
+  trace_by_id:
+    duration_slo: 100ms
+
+distributor:
+  ring:
+    kvstore:
+      store: memberlist
+    instance_interface_names:
+      - railnet0
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: "0.0.0.0:4317"
+        http:
+          endpoint: "0.0.0.0:4318"
+
+ingester:
+  lifecycler: 
+    ring:
+      replication_factor: 1
+      kvstore:
+        store: memberlist
+    address: '::'
+    enable_inet6: true
+  max_block_duration: 5m # cut the headblock when this much time passes. this is being set for demo purposes and should probably be left alone normally
+
+memberlist:
+  bind_addr:
+    - '::'
+  bind_port: 7946
+
+compactor:
+  ring:
+    instance_interface_names:
+      - railnet0
+    kvstore:
+      store: memberlist
+    enable_inet6: true
+  compaction:
+    block_retention: 1h # overall Tempo trace retention. set for demo purposes
+
+metrics_generator:
+  ring:
+    instance_interface_names:
+      - railnet0
+    enable_inet6: true
+  registry:
+    external_labels:
+      source: tempo
+      cluster: docker-compose
+  storage:
+    path: /var/tempo/generator/wal
+    remote_write:
+      - url: http://prometheus:9090/api/v1/write
+        send_exemplars: true
+  traces_storage:
+    path: /var/tempo/generator/traces
+  processor:
+    local_blocks:
+      filter_server_spans: false
+      flush_to_storage: true
+
+storage:
+  trace:
+    backend: local # backend configuration to use
+    wal:
+      path: /var/tempo/wal # where to store the the wal locally
+    local:
+      path: /var/tempo/blocks
+
+overrides:
+  defaults:
+    metrics_generator:
+      processors: [service-graphs, span-metrics, local-blocks] # enables metrics generator
+      generate_native_histograms: both
