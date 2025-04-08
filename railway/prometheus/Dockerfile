@@ -1,4 +1,4 @@
-FROM prom/prometheus:latest
+FROM prom/prometheus:v3.2.1
 
 COPY ./railway/prometheus/prometheus.yml /etc/prometheus/prometheus.yml
 
